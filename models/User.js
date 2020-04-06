@@ -19,8 +19,8 @@ const UserSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Date.now // Automatic 
+        default: Date.now // set up the current date and time 
     }
 });
-
+// setting a variable USER = mongoose.model()
 module.exports = User = mongoose.model('user', UserSchema)

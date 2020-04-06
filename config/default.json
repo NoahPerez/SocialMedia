@@ -1,3 +1,4 @@
 {
+  "mongoURI": "mongodb+srv://Noah:33443344nic@node-api-y92nq.mongodb.net/test?retryWrites=true&w=majority",
   "jwtSecret": "mysecrettoken"
 }

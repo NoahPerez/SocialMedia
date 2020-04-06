@@ -17,8 +17,8 @@ router.post(
     "/",
     [
         // this set all the validation 
-        // check name, and we can pass in a second parameter  a custom error message // we need .not().isEmpty
-        // isEmail check if it is a valid formated email.
+        // check name, and we can pass in a second parameter  a custom error message // we need .not().isEmpty()
+        // isEmail check if it is a valid formatted email.
         check('name', 'Name is required')
             .not()
             .isEmpty(),
@@ -37,7 +37,7 @@ router.post(
         // If any of the user Information don't match we should get line 24
 
         //--------------------------Logical Part----------------------------------//
-        // Deconstruct // to pull this information 
+        // Deconstruct // to pull this information from the request.body 
         const { name, email, password } = req.body;
 
         try {
@@ -54,11 +54,11 @@ router.post(
             // pass in the email of the user and options 
             // s is default size: string //r rating 
             // d default image like a user icon
-            //  @ line 59 create an instant of a user that we are passing as an object// we grab the user variable line 44
+            //  @ line 64 create an instant of a user that we are passing as an object// we grab the user variable line 44
             const avatar = gravatar.url(email, {
                 s: "200",
                 r: "pg",
-                d: 'mm'
+                d: 'retro'
             });
 
             user = new User({
@@ -68,14 +68,14 @@ router.post(
                 password
             });
 
-            // Encrypt password before saving the user of the instant line 58
+            // Encrypt password before saving the user of the instant line 64
             // a variable salt so we can get promise from Bcrypt dot Jen salt
             // we will pass in 10 that is rounds, it is recommended in the documentation the more you have more secure but slower it gets 
             const salt = await bcrypt.genSalt(10);
 
             user.password = await bcrypt.hash(password, salt);
 
-            await user.save();// this is saving the user.
+            await user.save();// this is saving the user in the database
 
             // Return jsonwebtoken // Using jsonToken in order the user to login right away if you have the Token.
             // Our payload is going to be an object // User will have an id to get that user.id 
@@ -93,7 +93,7 @@ router.post(
                 payload, // pass the payload
                 config.get('jwtSecret'),// pass in the secret jwtSecret. That is in folder config/default
                 { expiresIn: 360000 },
-                (err, token) => {   // it takes a possible error or token 
+                (err, token) => {   // it takes a possible error and token 
                     if (err) throw err; // if error throw and error
                     res.json({ token }); // if not send a 200 response (back to the client) but the data that we want is the token 
                 }

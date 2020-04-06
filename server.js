@@ -7,12 +7,12 @@ const app = express();
 connectDB();
 
 // Init Middleware instead bodyParser.json to Post. We can simple use express.json // Extended: false we are passing a object of extended: false should allow us to get the req.body in user.js 
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
 app.get('/', (req, res) => res.send(`API Running`)); // Get method  to run API 
 
 // access the routes //  ---- /api/users pertain so we use "require" and go thought the files 
-app.use('/api/users', require('./routes/api/users')) // this will prating in the file "/'', you can see that in postman 
+app.use('/api/users', require('./routes/api/users')); // this will prating in the file "/'', you can see that in postman 
 app.use('/api/auth', require('./routes/api/auth'))
 app.use('/api/profile', require('./routes/api/profile'))
 app.use('/api/posts', require('./routes/api/post'))

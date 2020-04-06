@@ -25,7 +25,7 @@ router.get("/", auth, async (req, res) => { // get to authorize token middleware
 });
 
 //@route          Post api/auth 
-//@description    Authenticate User and get Token 
+//@description    Authenticate user and get Token 
 //@access  Public // this will be Token route 
 router.post(
     "/",
@@ -85,7 +85,7 @@ router.post(
             jwt.sign(
                 payload, // pass the payload
                 config.get('jwtSecret'),// pass in the secret jwtSecret. That is in folder config/default
-                { expiresIn: 360000 },
+                { expiresIn: 3600 },
                 (err, token) => {   // it takes a possible error or token 
                     if (err) throw err; // if error throw and error
                     res.json({ token }); // if not send a 200 response (back to the client) but the data that we want is the token 
